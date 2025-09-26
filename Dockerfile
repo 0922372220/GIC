@@ -1,17 +1,16 @@
-FROM python:3.10-slim
+FROM python:3.10-bullseye
 
-WORKDIR /app
-
-RUN apt-get update && apt-get install -y \ 
-    build-essential \
-    gcc \
-    python3-dev \
-    wget \
-    unzip \
+RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
-    && apt-get clean
+    build-essential \
+    wget \
+    curl \
+    unzip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /app
 COPY . /app
 
 RUN pip install --upgrade pip
