@@ -46,6 +46,13 @@ def get_account():
     pw = fernet.decrypt(enc_pw.encode()).decode()
     return user, pw
 
+def delete_account():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("DELETE FROM accounts")
+    conn.commit()
+    conn.close()
+
 # ===== Telegram Handlers =====
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Xin chào! Bot GIC đã sẵn sàng. Dùng /help để xem lệnh.")
@@ -58,7 +65,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/claim → login gicore.gic.vn/claim\n"
         "/policyadmin → login gicore.gic.vn/policyadmin\n"
         "/bcp → login gicore.gic.vn/bcp\n"
-        "/status → kiểm tra bot & tài khoản"
+        "/status → kiểm tra bot & tài khoản\n"
+        "/logout → xoá tài khoản"
     )
 
 async def setaccount(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -74,6 +82,10 @@ async def setaccount(update: Update, context: ContextTypes.DEFAULT_TYPE):
     conn.commit()
     conn.close()
     await update.message.reply_text("✅ Đã lưu tài khoản.")
+
+async def logout(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    delete_account()
+    await update.message.reply_text("✅ Đã xoá tài khoản khỏi hệ thống.")
 
 async def portal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user, pw = get_account()
@@ -116,6 +128,7 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("setaccount", setaccount))
+    app.add_handler(CommandHandler("logout", logout))
     app.add_handler(CommandHandler("portal", portal))
     app.add_handler(CommandHandler("claim", claim))
     app.add_handler(CommandHandler("policyadmin", policyadmin))
