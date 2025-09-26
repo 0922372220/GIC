@@ -17,5 +17,9 @@
 
 ## Lệnh trong Telegram
 - /start → khởi động bot
-- /setaccount user pass → lưu tài khoản (mật khẩu mã hoá)
+- /help → danh sách lệnh
+- /setaccount user pass → lưu tài khoản (mật khẩu mã hoá AES)
 - /portal → đăng nhập portal.gic.vn (demo)
+- /claim → đăng nhập gicore.gic.vn/claim (demo)
+- /policyadmin → đăng nhập gicore.gic.vn/policyadmin (demo)
+- /bcp → đăng nhập gicore.gic.vn/bcp (demo)
