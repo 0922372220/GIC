@@ -55,9 +55,10 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Các lệnh khả dụng:\n"
         "/setaccount user pass → lưu tài khoản\n"
         "/portal → login portal.gic.vn\n"
-        "/claim → login claim.gic.vn\n"
-        "/policyadmin → login policyadmin.gic.vn\n"
-        "/bcp → login bcp.gic.vn"
+        "/claim → login gicore.gic.vn/claim\n"
+        "/policyadmin → login gicore.gic.vn/policyadmin\n"
+        "/bcp → login gicore.gic.vn/bcp\n"
+        "/status → kiểm tra bot & tài khoản"
     )
 
 async def setaccount(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -102,6 +103,14 @@ async def bcp(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     await update.message.reply_text(f"🔑 BCP login: {user}@gicore.gic.vn/bcp (demo)")
 
+async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user, pw = get_account()
+    if not user:
+        await update.message.reply_text("⚠️ Bot đang chạy. Chưa có tài khoản. Dùng /setaccount để thêm.")
+    else:
+        await update.message.reply_text(f"✅ Bot đang chạy. Tài khoản đã lưu: {user}")
+
+# ===== Main =====
 def main():
     app = ApplicationBuilder().token(TELEGRAM_API_KEY).build()
     app.add_handler(CommandHandler("start", start))
@@ -111,6 +120,7 @@ def main():
     app.add_handler(CommandHandler("claim", claim))
     app.add_handler(CommandHandler("policyadmin", policyadmin))
     app.add_handler(CommandHandler("bcp", bcp))
+    app.add_handler(CommandHandler("status", status))
 
     app.run_webhook(
         listen="0.0.0.0",
