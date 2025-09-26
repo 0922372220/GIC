@@ -1,25 +1,21 @@
-# GIC Portal Bot
+# GIC Telegram Bot (SQLite + Webhook Render)
 
-## Cấu hình ENV
-- TELEGRAM_API_KEY: token BotFather
-- SECRET_KEY: key để mã hoá mật khẩu
-- RENDER_EXTERNAL_URL: URL service Render
+## 1. Chuẩn bị
+- Tạo bot trên Telegram bằng **@BotFather**, lấy `TELEGRAM_API_KEY`.
+- Chuẩn bị `SECRET_KEY` để mã hoá password (có thể để auto-generate).
 
-## Deploy Render
-1. Tạo dịch vụ Web Service, chọn Docker.
-2. Upload source gồm:
-   - bot_fetch_gic.py
-   - requirements.txt
-   - Dockerfile
-   - README.md
-3. Set ENV trong Render dashboard.
-4. Deploy.
+## 2. Source code gồm
+- `bot_fetch_gic.py` (bot chính)
+- `requirements.txt`
+- `Dockerfile`
+- `README.md`
 
-## Lệnh trong Telegram
-- /start → khởi động bot
-- /help → danh sách lệnh
-- /setaccount user pass → lưu tài khoản (mật khẩu mã hoá AES)
-- /portal → đăng nhập portal.gic.vn (demo)
-- /claim → đăng nhập gicore.gic.vn/claim (demo)
-- /policyadmin → đăng nhập gicore.gic.vn/policyadmin (demo)
-- /bcp → đăng nhập gicore.gic.vn/bcp (demo)
+## 3. Deploy trên Render
+1. Tạo **Web Service** chọn Docker.
+2. Upload toàn bộ source.
+3. Thiết lập **Environment Variables**:
+   - `TELEGRAM_API_KEY`: API key từ BotFather.
+   - `RENDER_EXTERNAL_URL`: URL Render (ví dụ `https://mybot.onrender.com`).
+   - `SECRET_KEY`: (tuỳ chọn) chuỗi bí mật để mã hoá password.
+
+## 4. Command Bot
