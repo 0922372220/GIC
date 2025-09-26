@@ -1,13 +1,21 @@
-# GICore Telegram Bot
+# GIC Portal Bot
 
-Bot Telegram để login vào GICore (claim, policyadmin, bcp) và fetch dữ liệu.
+## Cấu hình ENV
+- TELEGRAM_API_KEY: token BotFather
+- SECRET_KEY: key để mã hoá mật khẩu
+- RENDER_EXTERNAL_URL: URL service Render
 
-## Commands
-- /setcreds user pass
-- /setlinks url1 url2 url3
-- /fetchnow
+## Deploy Render
+1. Tạo dịch vụ Web Service, chọn Docker.
+2. Upload source gồm:
+   - bot_fetch_gic.py
+   - requirements.txt
+   - Dockerfile
+   - README.md
+3. Set ENV trong Render dashboard.
+4. Deploy.
 
-## Deploy trên Render
-1. Upload repo có 3 file: bot_fetch_gic.py, requirements.txt, Dockerfile, README.md
-2. Set env TELEGRAM_API_KEY, RENDER_EXTERNAL_URL, SECRET_KEY
-3. Deploy Docker service
+## Lệnh trong Telegram
+- /start → khởi động bot
+- /setaccount user pass → lưu tài khoản (mật khẩu mã hoá)
+- /portal → đăng nhập portal.gic.vn (demo)
